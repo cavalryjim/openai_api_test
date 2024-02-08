@@ -5,16 +5,18 @@ from dotenv import load_dotenv
 load_dotenv()
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
+question = input("What do you want to ask ChatGPT? ")
 
 messages = [
     {"role": "system", "content": "You are a helpful assistant."},
-    {"role": "user", "content": "What is the best shtf rifle?"}
+    {"role": "user", "content": question}
 ]
 
 # Create a chat completion
 chat = client.chat.completions.create(model="gpt-3.5-turbo", messages=messages)
 
-print(chat)
+# print(chat)
+print(chat.choices[0].message.content)
 
 
 # messages = [ {"role": "system", "content":  

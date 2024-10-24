@@ -10,7 +10,7 @@ def main():
     print(chat.choices[0].message.content)
 
 def build_message():
-    question = input("What do you want to ask ChatGPT? ")
+    question = input("What do you want to ask JD LLM? ")
     messages = [
         {"role": "system", "content": "You are a helpful assistant."},
         {"role": "user", "content": question}
@@ -20,6 +20,7 @@ def build_message():
 
 def get_chatgpt_response(msgs):
     client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
+    # client = OpenAI(api_ke 
     chat = client.chat.completions.create(model="gpt-3.5-turbo", messages=msgs)
     return chat
 

@@ -5,9 +5,9 @@ load_dotenv()
 
 def main():
     messages = build_message()
-    chat = get_chatgpt_response(messages)
+    response = get_response(messages)
 
-    print(chat.choices[0].message.content)
+    print(response)
 
 def build_message():
     question = input("What do you want to ask ChatGPT? ")
@@ -18,9 +18,14 @@ def build_message():
 
     return messages
 
-def get_chatgpt_response(msgs):
+def get_response(prompt, temperature=0, max_tokens=100):
     client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
-    chat = client.chat.completions.create(model="gpt-3.5-turbo", messages=msgs)
-    return chat
+    response = client.chat.completions.create(
+        model="gpt-3.5-turbo", 
+        messages=prompt,
+        temperature = temperature,
+        max_tokens = max_tokens
+    )
+    return response.choices[0].message.content
 
 main()
